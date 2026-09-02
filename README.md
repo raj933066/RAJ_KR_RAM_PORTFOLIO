@@ -1,3 +1,4 @@
+    <<<<<<< HEAD
 # Premium MERN Portfolio
 
 A dark, glassmorphic personal portfolio built with React (Vite), Tailwind CSS, Framer Motion, and an Express backend for the contact form. Contact messages are stored in Supabase.
@@ -88,3 +89,7 @@ npm run build     # outputs to client/dist
 - The custom cursor, particle-style background, scroll progress bar, back-to-top button, loading screen, and dark/light theme toggle are all implemented without extra paid services.
 - Reduced-motion preferences are respected (`prefers-reduced-motion`).
 - The contact form validates on both client and server; messages are stored in Supabase even if the outbound email fails, so no submissions are lost due to SMTP issues.
+=======
+# RAJ_KR_RAM_PORTFOLIO
+A modern, responsive developer portfolio built with React and Vite, featuring projects, skills, education, experience, certifications, achievements, and a Supabase-powered CMS with a secure admin dashboard for managing portfolio content.
+>>>>>>> 851c5b138472ce8871eb2f82b463e93018f2e32a
