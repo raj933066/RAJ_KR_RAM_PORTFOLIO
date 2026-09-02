@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-base-950: 248 249 250;
+  --color-base-900: 248 249 250;
+  --color-base-800: 255 255 255;
+  --color-base-700: 224 224 224;
+  --color-base-600: 203 203 203;
+  --color-ink-100: 33 37 41;
+  --color-ink-200: 52 58 64;
+  --color-ink-400: 73 80 87;
+  --color-ink-600: 108 117 125;
+}
+
+.dark {
+  --color-base-950: 5 7 15;
+  --color-base-900: 10 14 26;
+  --color-base-800: 15 20 36;
+  --color-base-700: 22 29 51;
+  --color-base-600: 33 42 71;
+  --color-ink-100: 241 245 249;
+  --color-ink-200: 226 232 240;
+  --color-ink-400: 148 163 184;
+  --color-ink-600: 100 116 139;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-base-900 text-ink-200 font-body antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display;
+}
+
+::selection {
+  @apply bg-brand-purple/40 text-white;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 999px;
+}
+
+/* Simple surfaces and actions keep the visual focus on the portfolio content. */
+.glass {
+  @apply bg-base-800 border-base-700;
+  box-shadow: 0 2px 8px rgba(33, 37, 41, 0.08);
+}
+
+.glass-strong {
+  @apply bg-base-800 border-base-700;
+  box-shadow: 0 2px 8px rgba(33, 37, 41, 0.08);
+}
+
+.text-gradient {
+  color: #0d6efd;
+}
+
+.btn-gradient {
+  background: #0d6efd;
+  transition: background-color 0.2s ease;
+}
+.btn-gradient:hover {
+  background: #0b5ed7;
+}
+
+/* Custom cursor (desktop only) */
+.cursor-dot {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  border-radius: 999px;
+  mix-blend-mode: difference;
+}
+
+/* Focus visibility for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skill progress bar */
+.progress-track {
+  @apply w-full h-2 rounded-full bg-base-700 overflow-hidden;
+}
+.progress-fill {
+  @apply h-full rounded-full;
+  background: #0d6efd;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+
+.dark .glass,
+.dark .glass-strong {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
