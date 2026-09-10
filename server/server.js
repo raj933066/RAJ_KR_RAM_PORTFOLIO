@@ -85,9 +85,12 @@ const startServer = async () => {
 };
 
 // Run server only when not deployed as a Vercel function
-if (process.env.VERCEL !== '1') {
+if (process.env.VERCEL === '1') {
+  connectDatabase().catch((error) => {
+    console.error(`MongoDB connection failed: ${error.message}`);
+  });
+} else {
   startServer();
 }
 
-// Export Express app for Vercel
 export default app;
