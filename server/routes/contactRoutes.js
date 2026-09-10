@@ -2,7 +2,7 @@ import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
 import { createMessage, getMessages, deleteMessage } from '../controllers/contactController.js';
 import { contactValidationRules, validate } from '../middleware/validators.js';
-import requireSupabaseAdmin from '../middleware/requireSupabaseAdmin.js';
+import requireAdminKey from '../middleware/requireAdminKey.js';
 
 const router = Router();
 
@@ -18,10 +18,10 @@ const contactLimiter = rateLimit({
 // POST /api/contact
 router.post('/contact', contactLimiter, contactValidationRules, validate, createMessage);
 
-// GET /api/messages (Supabase Auth admin only)
-router.get('/messages', requireSupabaseAdmin, getMessages);
+// GET /api/messages (admin key required)
+router.get('/messages', requireAdminKey, getMessages);
 
-// DELETE /api/messages/:id (Supabase Auth admin only)
-router.delete('/messages/:id', requireSupabaseAdmin, deleteMessage);
+// DELETE /api/messages/:id (admin key required)
+router.delete('/messages/:id', requireAdminKey, deleteMessage);
 
 export default router;

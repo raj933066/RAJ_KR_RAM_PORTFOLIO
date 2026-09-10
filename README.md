@@ -1,19 +1,18 @@
-    <<<<<<< HEAD
 # Premium MERN Portfolio
 
-A dark, glassmorphic personal portfolio built with React (Vite), Tailwind CSS, Framer Motion, and an Express backend for the contact form. Contact messages are stored in Supabase.
+    A dark, glassmorphic personal portfolio built with React (Vite), Tailwind CSS, Framer Motion, and an Express backend for the contact form. Contact messages are stored in MongoDB.
 
 ```
 portfolio/
 ├── client/    React + Vite + Tailwind frontend
-├── server/    Express + Supabase backend
+├── server/    Express + MongoDB backend
 └── render.yaml
 ```
 
 ## 1. Prerequisites
 
-- Node.js 18+ and npm
-- A Supabase project with the `supabase/migrations/002_contact_messages.sql` migration applied
+- Node.js 20.19+ and npm
+- A MongoDB Atlas cluster, or a local MongoDB instance
 - An SMTP account for sending emails (Gmail + an [App Password](https://myaccount.google.com/apppasswords) works well)
 
 ## 2. Run the backend
@@ -21,7 +20,7 @@ portfolio/
 ```bash
 cd server
 cp .env.example .env
-# edit .env with Supabase server credentials and SMTP credentials
+# edit .env with your MongoDB URI and SMTP credentials
 npm install
 npm run dev
 ```
@@ -32,8 +31,8 @@ The API starts on `http://localhost:5000`. Health check: `GET http://localhost:5
 | Method | Route              | Description                              | Auth              |
 |--------|--------------------|-------------------------------------------|--------------------|
 | POST   | `/api/contact`     | Save a contact message + send email       | Public (rate-limited) |
-| GET    | `/api/messages`    | List all stored messages                  | Supabase Auth admin session |
-| DELETE | `/api/messages/:id`| Delete a message by id                    | Supabase Auth admin session |
+| GET    | `/api/messages`    | List all stored messages                  | `x-admin-key` header |
+| DELETE | `/api/messages/:id`| Delete a message by id                    | `x-admin-key` header |
 
 ## 3. Run the frontend
 
@@ -75,21 +74,17 @@ npm run build     # outputs to client/dist
 
 **Backend → Render**
 1. In Render, create a new Web Service from this repo (root directory `server/`), or use the included `render.yaml` blueprint.
-2. Set the environment variables from `server/.env.example` in the Render dashboard (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `CLIENT_ORIGIN` = your Vercel URL, SMTP credentials).
+2. Set the environment variables from `server/.env.example` in the Render dashboard (`MONGODB_URI`, `ADMIN_API_KEY`, `CLIENT_ORIGIN` = your Vercel URL, SMTP credentials).
 3. Build command: `npm install`, start command: `npm start`.
 
 ## 7. Tech stack
 
 - **Frontend:** React 18, Vite, Tailwind CSS, Framer Motion, React Router, React Icons, react-type-animation, react-toastify
-- **Backend:** Node.js, Express, Supabase, Nodemailer, express-validator, express-rate-limit, Helmet
+- **Backend:** Node.js, Express, MongoDB/Mongoose, Nodemailer, express-validator, express-rate-limit, Helmet
 - **GitHub stats** are rendered via the public github-readme-stats/streak-stats image APIs and ghchart.rshah.org — no API token required. Just change `githubUsername` in `data.js`.
 
 ## 8. Notes
 
 - The custom cursor, particle-style background, scroll progress bar, back-to-top button, loading screen, and dark/light theme toggle are all implemented without extra paid services.
 - Reduced-motion preferences are respected (`prefers-reduced-motion`).
-- The contact form validates on both client and server; messages are stored in Supabase even if the outbound email fails, so no submissions are lost due to SMTP issues.
-=======
-# RAJ_KR_RAM_PORTFOLIO
-A modern, responsive developer portfolio built with React and Vite, featuring projects, skills, education, experience, certifications, achievements, and a Supabase-powered CMS with a secure admin dashboard for managing portfolio content.
->>>>>>> 851c5b138472ce8871eb2f82b463e93018f2e32a
+- The contact form validates on both client and server; messages are stored in MongoDB even if the outbound email fails, so no submissions are lost due to SMTP issues.

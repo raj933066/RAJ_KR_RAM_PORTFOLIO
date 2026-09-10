@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiExternalLink, FiGithub } from 'react-icons/fi';
+import GitHubCalendar from 'react-github-calendar';
 import Container from '../ui/Container';
 import SectionHeading from '../ui/SectionHeading';
 import GlassCard from '../ui/GlassCard';
@@ -64,55 +65,10 @@ const GithubStats = () => {
           </GlassCard>
         ) : (
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-6">
-            <GlassCard className="p-6" hover={false}>
-              {!data ? (
-                <p className="text-ink-400 animate-pulse">Loading GitHub statistics...</p>
-              ) : (
-                <>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {statLabels.map(([key, label]) => (
-                      <div key={key}>
-                        <p className="text-2xl font-bold text-ink-100">{data[key].toLocaleString()}</p>
-                        <p className="text-xs text-ink-400 mt-1">{label}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-ink-600 mt-6">
-                    Statistics are loaded directly from the public GitHub API.
-                  </p>
-                </>
-              )}
-            </GlassCard>
+            
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5 }}
-            >
-              <GlassCard className="p-6 h-full" hover={false}>
-                <h3 className="text-lg font-semibold text-ink-100 mb-4">Top languages</h3>
-                {!data ? (
-                  <p className="text-ink-400 animate-pulse">Loading language data...</p>
-                ) : data.topLanguages.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {data.topLanguages.map(({ name, count }) => (
-                      <span
-                        key={name}
-                        className="px-3 py-1.5 rounded-full bg-base-700 border border-base-600 text-sm text-brand-cyan"
-                      >
-                        {name} <span className="text-ink-600">({count})</span>
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-ink-400">No public language data available yet.</p>
-                )}
-              </GlassCard>
-            </motion.div>
           </div>
         )}
-
       </Container>
     </section>
   );

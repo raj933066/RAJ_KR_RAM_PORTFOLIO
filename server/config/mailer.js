@@ -12,6 +12,10 @@ export const getTransporter = () => {
     return null;
   }
 
+  if (SMTP_HOST.includes('@')) {
+    throw new Error('SMTP_HOST must be a mail server hostname such as smtp.gmail.com, not an email address.');
+  }
+
   transporter = nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT) || 587,

@@ -12,8 +12,6 @@ import ErrorBoundary from './components/ui/ErrorBoundary';
   
 const Home = lazy(() => import('./pages/Home'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-const Admin = lazy(() => import('./pages/Admin'));
-const AdminLogin = lazy(() => import('./pages/Admin').then((module) => ({ default: module.AdminLogin })));
 
 function App() {
   return (
@@ -27,8 +25,6 @@ function App() {
           <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/admin/*" element={<Admin />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
