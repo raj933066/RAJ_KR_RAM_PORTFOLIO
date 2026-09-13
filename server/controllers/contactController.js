@@ -7,26 +7,30 @@ export const createMessage = asyncHandler(async (req, res) => {
   const { name, email, subject, message } = req.body;
   const saved = await ContactMessage.create({ name, email, subject, message });
 
-  const transporter = getTransporter();
-  if (transporter) {
-    try {
-      await transporter.sendMail({
-        from: `"Portfolio Contact Form" <${process.env.SMTP_USER}>`,
-        to: process.env.CONTACT_RECEIVER || process.env.SMTP_USER,
-        replyTo: email,
-        subject: `New message: ${subject}`,
-        html: buildContactEmailHtml({ name, email, subject, message }),
-      });
-    } catch (error) {
-      console.error('Failed to send notification email:', error.message);
-    }
-  }
-
+  // Respond immediately once the message is safely stored — don't make the
+  // visitor wait on an SMTP round trip that can hang for many seconds.
   res.status(201).json({
     success: true,
     message: 'Your message has been sent successfully!',
     data: { id: saved._id },
   });
+
+  // Send the notification email in the background. Any failure here is
+  // logged only — it never affects the response already sent to the user.
+  const transporter = getTransporter();
+  if (transporter) {
+    transporter
+      .sendMail({
+        from: `"Portfolio Contact Form" <${process.env.SMTP_USER}>`,
+        to: process.env.CONTACT_RECEIVER || process.env.SMTP_USER,
+        replyTo: email,
+        subject: `New message: ${subject}`,
+        html: buildContactEmailHtml({ name, email, subject, message }),
+      })
+      .catch((error) => {
+        console.error('Failed to send notification email:', error.message);
+      });
+  }
 });
 
 export const getMessages = asyncHandler(async (req, res) => {

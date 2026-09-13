@@ -50,7 +50,7 @@ export const projects = [
       "TradeZen is a full-stack stock trading platform inspired by Zerodha, designed to provide users with a realistic stock-market dashboard and trading experience. The platform allows users to monitor stocks, manage their portfolio, view holdings and positions, and execute buy/sell transactions through an interactive interface.",
     tech: ["React", "Node.js", "Express", "MongoDB"],
     features: [],
-    image: "../public/images/tradzen.jpeg",
+    image: "./images/tradZen.jpeg",
     github: "https://github.com/raj933066/TradeZen",
     demo: "",
   },
